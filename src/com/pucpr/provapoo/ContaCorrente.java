@@ -23,7 +23,7 @@ public class ContaCorrente {
         /*
           Assert para que se caso o número não corresponda com o padrão de número de agência:
 
-                4 digitos, ou em alguns casos : 4 digitos + 1 digito da agencia (Numero da conta sem símbolos)
+          4 digitos, ou em alguns casos : 4 digitos + 1 digito da agencia (Numero da conta sem símbolos)
         */
         assert (agencia <= 0 || agencia > 99999);
         this.agencia = agencia;
