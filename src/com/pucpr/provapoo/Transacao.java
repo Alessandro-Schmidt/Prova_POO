@@ -8,12 +8,17 @@ public class Transacao {
     private LocalDate data;
     private float valor;
 
+    // Constructor
     public Transacao(String descricao, float valor) {
         setDescricao(descricao);
-        setValor(valor);
+        if (valor<0){
+            setValor(-valor);
+        }else{
+            setValor(valor);
+        }
         setData(LocalDate.now());
     }
-
+    // Getter and Setters
     public String getDescricao() {
         return descricao;
     }
@@ -38,6 +43,7 @@ public class Transacao {
         this.valor = valor;
     }
 
+    // Método de impressão de status.
     public void imprimir(){
         System.out.println("Transação:");
         System.out.println("Descrição: "+getDescricao());

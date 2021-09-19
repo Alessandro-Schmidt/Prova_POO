@@ -6,11 +6,14 @@ public class Cliente {
     private String nome;
     private ArrayList<ContaCorrente> contasCorrente = new ArrayList<>();
 
+    // Constructor
     public Cliente(String nome, ArrayList<ContaCorrente> contasCorrente) {
         setNome(nome);
         setContasCorrente(contasCorrente);
     }
 
+
+    // Getter and Setters
     public String getNome() {
         return nome;
     }
@@ -28,13 +31,13 @@ public class Cliente {
         this.contasCorrente = contasCorrente;
     }
 
+
     public float saldoTotal(){
         return 0f; //Teste
     }
 
     public void imprimir(){
 
+
     }
-
-
 }

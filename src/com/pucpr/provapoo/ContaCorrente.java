@@ -8,6 +8,7 @@ public class ContaCorrente {
     private ArrayList<Transacao> transacoes = new ArrayList<>();
     private Cliente cliente;
 
+    // Constructor
     public ContaCorrente(int agencia, int numero, Transacao transacoes, Cliente cliente) {
         setAgencia(agencia);
         setNumero(numero);
@@ -15,6 +16,7 @@ public class ContaCorrente {
         setCliente(cliente);
     }
 
+    // Getter and setter
     public int getAgencia() {
         return agencia;
     }
@@ -60,16 +62,21 @@ public class ContaCorrente {
         this.cliente = cliente;
     }
 
+    // Método depositar
+
     public void depositar(String descricao, float valorDeposito){
         Transacao transacao = new Transacao(descricao, valorDeposito);
         addTransacoes(transacao);
         System.out.println("Deposito realizado com sucesso!");
     }
 
+
+    // Metodo retirar
     public float retirar(String descricao, float valorRetirar){
         return 0f;
     }
 
+    // Método retornar
     public float retornar(){
         float saldo = 0;
         for (Transacao transacao: transacoes){
@@ -77,6 +84,8 @@ public class ContaCorrente {
         }
         return saldo;
     }
+
+    // Método de inmpressão de extrato
 
     public void extrato(){
         System.out.println("======Extrato Bancário======");
