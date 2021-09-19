@@ -12,11 +12,7 @@ public class Transacao {
     // Constructor
     public Transacao(String descricao, float valor) {
         setDescricao(descricao);
-        if (valor<0){
-            setValor(-valor);
-        }else{
-            setValor(valor);
-        }
+        setValor(valor);
         setData(LocalDate.now());
     }
     // Getter and Setters

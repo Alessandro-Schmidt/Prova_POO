@@ -1,19 +1,20 @@
 package com.pucpr.provapoo;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ContaCorrente {
     private int agencia;
     private int numero;
-    private ArrayList<Transacao> transacoes = new ArrayList<>();
+    private ArrayList<Transacao> transacoes;
     private Cliente cliente;
+    private float saldo;
 
     // Constructor
-    public ContaCorrente(int agencia, int numero, Transacao transacoes, Cliente cliente) {
-        setAgencia(agencia);
-        setNumero(numero);
-        addTransacoes(transacoes);
-        setCliente(cliente);
+    public ContaCorrente(int agencia, int numero) {
+        this.agencia = getAgencia();
+        this.numero = getNumero();
+        this.transacoes = new ArrayList<Transacao>();
     }
 
     // Getter and setter
@@ -62,27 +63,57 @@ public class ContaCorrente {
         this.cliente = cliente;
     }
 
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
+
     // Método depositar
 
     public void depositar(String descricao, float valorDeposito){
-        Transacao transacao = new Transacao(descricao, valorDeposito);
-        addTransacoes(transacao);
+        Transacao deposito = new Transacao(descricao, valorDeposito);
+        addTransacoes(deposito);
         System.out.println("Deposito realizado com sucesso!");
+        deposito.imprimir();
+        saldo+= deposito.getValor();
+        String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
+        System.out.println("Saldo final: R$ "+ valorSaldo);
+        addTransacoes(deposito);
     }
 
 
     // Metodo retirar
-    public float retirar(String descricao, float valorRetirar){
-        return 0f;
-    }
+    public void retirar(String descricao, float valorRetirar){
+        Transacao retirada = new Transacao(descricao,valorRetirar);
+        if (this.getSaldo()==0){
+            System.out.println("Operação inválida.");
+        }else{
+            if (this.getSaldo() >= retirada.getValor()){
+                System.out.println("Retirada realizada com sucesso!");
+                retirada.imprimir();
+                saldo -= retirada.getValor();
+                System.out.println("Saldo final da conta "+this.getNumero()+":");
+                String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
+                System.out.println("Saldo final: R$ "+ valorSaldo);
+                addTransacoes(retirada);
+            }else if (this.getSaldo() < retirada.getValor()){
+                System.out.println("Retirada realizada parcialmente.");
+                retirada.setValor(this.getSaldo());
+                retirada.imprimir();
+                saldo -= retirada.getValor();
+                String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
+                System.out.println("Saldo final: R$ "+ valorSaldo);
+                addTransacoes(retirada);
+            }
+        }
 
+    }
     // Método retornar
     public float retornar(){
-        float saldo = 0;
-        for (Transacao transacao: transacoes){
-            saldo += transacao.getValor();
-        }
-        return saldo;
+        return getSaldo();
     }
 
     // Método de inmpressão de extrato
@@ -95,7 +126,8 @@ public class ContaCorrente {
         for (Transacao transacao: transacoes){
             transacao.imprimir();
         }
-        System.out.println("Saldo: R$"+retornar());
+        String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
+        System.out.println("Saldo: R$ "+ valorSaldo);
         System.out.println("---------------------------------");
     }
 }
