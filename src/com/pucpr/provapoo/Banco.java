@@ -8,5 +8,6 @@ public class Banco {
 
     public static void main(String[] args) {
         Transacao pix01 = new Transacao("Pagamento das aulas de piano", 1567.98f);
+        pix01.imprimir();
     }
 }

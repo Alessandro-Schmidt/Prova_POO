@@ -1,6 +1,7 @@
 package com.pucpr.provapoo;
 
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.Locale;
 
 public class Transacao {
@@ -45,9 +46,10 @@ public class Transacao {
 
     // Método de impressão de status.
     public void imprimir(){
-        System.out.println("Transação:");
+        System.out.println("Detalhes da Transação:");
         System.out.println("Descrição: "+getDescricao());
-        System.out.println("Data: "+getData());
-        System.out.println("Valor: "+getValor());
+        System.out.println("Data: "+getData().getDayOfMonth()+"/"+getData().getMonthValue()+"/"+getData().getYear());
+        String valorTransacao = String.format(Locale.FRENCH, "%.2f", getValor());
+        System.out.println("Valor: R$ "+ valorTransacao);
     }
 }
