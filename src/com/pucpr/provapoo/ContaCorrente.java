@@ -89,15 +89,15 @@ public class ContaCorrente {
             System.out.println("Operação inválida.");
         }else{
             if (getSaldo() >= valorRetirar){
-                System.out.println("Retirada realizada com sucesso! (Valor: R$ "+valorRetirar+")");
+                System.out.println("Retirada realizada com sucesso! (Valor: R$ -"+valorRetirar+")");
                 saldo -= valorRetirar;
-
                 addTransacoes(retirada);
             }else if (getSaldo() < valorRetirar){
-                System.out.println("Retirada realizada parcialmente.(Valor: R$ "+valorRetirar+")");
-                retirada.setValor(getSaldo());
+                valorRetirar = getSaldo();
+                System.out.println("Retirada realizada parcialmente (Valor: R$ -"+ valorRetirar +")");
                 saldo -= valorRetirar;
                 addTransacoes(retirada);
+                assert (getSaldo() == 0);
             }
         }
 

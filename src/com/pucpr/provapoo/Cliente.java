@@ -48,15 +48,19 @@ public class Cliente {
     }
 
     public void operar(ContaCorrente contaCorrente){
+        System.out.println("\n------------------------");
+        System.out.println("CLIENTE: "+ getNome());
+        System.out.println("------------------------");
+        System.out.println("Notificações:\n");
         contaCorrente.depositar("Ração do cachorro", 50f);
         contaCorrente.depositar("Aluguel", 600f);
         contaCorrente.depositar("Conta de Água", 130f);
         contaCorrente.retirar("Universidade", 100);
         contaCorrente.retirar("Compras no Mercado", 200f);
-        contaCorrente.retirar("Shopping", 150f);
-        System.out.println("------------------------");
+        contaCorrente.retirar("Shopping", 400f);
+        System.out.println("------------------------\n");
         contaCorrente.extrato();
-        System.out.println("Saldo: R$ "+ contaCorrente.retornar());
+        System.out.printf("Saldo: R$ %.2f\n", contaCorrente.retornar());
         System.out.println("------------------------");
     }
 }
