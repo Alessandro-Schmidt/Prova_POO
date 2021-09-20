@@ -42,10 +42,12 @@ public class Transacao {
 
     // Método de impressão de status.
     public void imprimir(){
+        System.out.println("-----------------------");
         System.out.println("Detalhes da Transação:");
         System.out.println("Descrição: "+getDescricao());
         System.out.println("Data: "+getData().getDayOfMonth()+"/"+getData().getMonthValue()+"/"+getData().getYear());
         String valorTransacao = String.format(Locale.FRENCH, "%.2f", getValor());
         System.out.println("Valor: R$ "+ valorTransacao);
+        System.out.println("-----------------------");
     }
 }

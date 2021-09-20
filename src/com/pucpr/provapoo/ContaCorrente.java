@@ -12,8 +12,8 @@ public class ContaCorrente {
 
     // Constructor
     public ContaCorrente(int agencia, int numero) {
-        this.agencia = getAgencia();
-        this.numero = getNumero();
+        setAgencia(agencia);
+        setNumero(numero);
         this.transacoes = new ArrayList<Transacao>();
     }
 
@@ -76,36 +76,27 @@ public class ContaCorrente {
     public void depositar(String descricao, float valorDeposito){
         Transacao deposito = new Transacao(descricao, valorDeposito);
         addTransacoes(deposito);
-        System.out.println("Deposito realizado com sucesso!");
-        deposito.imprimir();
-        saldo+= deposito.getValor();
-        String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
-        System.out.println("Saldo final: R$ "+ valorSaldo);
-        addTransacoes(deposito);
+        System.out.println("Deposito realizado com sucesso! (Valor: R$"+valorDeposito+")");
+        saldo+= valorDeposito;
     }
 
 
     // Metodo retirar
     public void retirar(String descricao, float valorRetirar){
         Transacao retirada = new Transacao(descricao,valorRetirar);
-        if (this.getSaldo()==0){
+        if (getSaldo()==0){
+            System.out.println("");
             System.out.println("Operação inválida.");
         }else{
-            if (this.getSaldo() >= retirada.getValor()){
-                System.out.println("Retirada realizada com sucesso!");
-                retirada.imprimir();
-                saldo -= retirada.getValor();
-                System.out.println("Saldo final da conta "+this.getNumero()+":");
-                String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
-                System.out.println("Saldo final: R$ "+ valorSaldo);
+            if (getSaldo() >= valorRetirar){
+                System.out.println("Retirada realizada com sucesso! (Valor: R$ "+valorRetirar+")");
+                saldo -= valorRetirar;
+
                 addTransacoes(retirada);
-            }else if (this.getSaldo() < retirada.getValor()){
-                System.out.println("Retirada realizada parcialmente.");
-                retirada.setValor(this.getSaldo());
-                retirada.imprimir();
-                saldo -= retirada.getValor();
-                String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
-                System.out.println("Saldo final: R$ "+ valorSaldo);
+            }else if (getSaldo() < valorRetirar){
+                System.out.println("Retirada realizada parcialmente.(Valor: R$ "+valorRetirar+")");
+                retirada.setValor(getSaldo());
+                saldo -= valorRetirar;
                 addTransacoes(retirada);
             }
         }
@@ -120,14 +111,13 @@ public class ContaCorrente {
 
     public void extrato(){
         System.out.println("======Extrato Bancário======");
-        System.out.println("Agencia: "+getAgencia());
-        System.out.println("Número: "+getNumero());
+        System.out.println("Agencia: "+ getAgencia());
+        System.out.println("Número: "+ getNumero());
         System.out.println("-------Lista de Transações-------");
         for (Transacao transacao: transacoes){
             transacao.imprimir();
         }
         String valorSaldo = String.format(Locale.FRENCH, "%.2f", getSaldo());
-        System.out.println("Saldo: R$ "+ valorSaldo);
-        System.out.println("---------------------------------");
+
     }
 }
